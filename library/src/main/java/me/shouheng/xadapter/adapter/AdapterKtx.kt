@@ -23,7 +23,7 @@ class AdapterSetup<IT, VH: BaseViewHolder> internal constructor() {
         val setup = AdapterViewHolderSetup<T, VH>()
         setup.apply(init)
         val definition = AdapterViewHolderDefinition(type, layoutId, setup)
-        definitions[type.javaClass.hashCode()] = definition as AdapterViewHolderDefinition<IT, VH>
+        definitions[type.hashCode()] = definition as AdapterViewHolderDefinition<IT, VH>
     }
 
     /** Register click and long click events of child views for viewholder. */

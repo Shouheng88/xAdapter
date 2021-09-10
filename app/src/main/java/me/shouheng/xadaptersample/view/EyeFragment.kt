@@ -27,8 +27,6 @@ class EyeFragment : ViewBindingFragment<EyeViewModel, FragmentListBinding>() {
 
     private var adapter: BaseQuickAdapter<Item, BaseViewHolder>? = null
 
-    override fun getLayoutResId(): Int = R.layout.fragment_list
-
     override fun doCreateView(savedInstanceState: Bundle?) {
         createAdapter()
         binding.rv.adapter = adapter
