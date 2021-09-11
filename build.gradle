@@ -18,6 +18,14 @@ allprojects {
         mavenCentral()
         maven { url "https://jitpack.io" }
     }
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+    }
 }
 
 task clean(type: Delete) {
@@ -28,4 +36,5 @@ ext {
     androidUtilsVersion = '2.4.0'
     androidVMLibVersion = '1.8.0'
     androidUIXVersion = '1.9.0'
+    publishVersion = '1.0'
 }

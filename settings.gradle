@@ -1,3 +1,3 @@
-rootProject.name = "SimpleAdapter"
+rootProject.name = "xAdapter"
 include ':app'
 include ':library'
