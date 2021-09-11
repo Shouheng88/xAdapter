@@ -1,4 +1,4 @@
-# xAdapter: Kotlin DSL 风格的 Adapter 封装
+<h1 align="center">xAdapter: Kotlin DSL 风格的 Adapter 封装</h1>
 
 <p align="center">
   <a href="http://www.apache.org/licenses/LICENSE-2.0">
