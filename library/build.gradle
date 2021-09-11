@@ -50,7 +50,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId 'com.github.Shouheng88'
-            artifactId 'xadpater'
+            artifactId 'xadapter'
             version rootProject.ext.publishVersion
             // Two artifacts, the `aar` and the sources
             artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
