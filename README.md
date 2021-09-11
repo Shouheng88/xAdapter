@@ -11,7 +11,7 @@
     <img src="https://app.codacy.com/project/badge/Grade/695fe1f33d7b45f5b89767b02a2c33b0"/>
   </a>
   <a href="https://travis-ci.org/Shouheng88/xAdapter">
-    <img src="https://travis-ci.org/Shouheng88/xAdapter.svg?branch=master" alt="Build"/>
+    <img src="https://app.travis-ci.com/Shouheng88/xAdapter.svg?branch=main" alt="Build"/>
   </a>
   <a href="https://developer.android.com/about/versions/android-4.2.html">
     <img src="https://img.shields.io/badge/API-21%2B-blue.svg?style=flat-square" alt="Min Sdk Version" />
@@ -37,7 +37,7 @@
 
 ### 2.1 引入依赖
 
-首先，该项目依赖于 [BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，所以，你需要引入该库之后菜可以使用。该项目已经上传到了 MavenCenteral，你需要先在项目中引入该仓库，
+首先，该项目依赖于 [BRVAH](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)，所以，你需要引入该库之后菜可以使用。该项目已经上传到了 MavenCentral，你需要先在项目中引入该仓库，
 
 ```
 allprojects {
