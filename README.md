@@ -86,48 +86,48 @@ xAdapter 支持为每个 ViewHolder 绑定点击和长按事件，同时也支�
 多类型 Adapter 的使用方式非常简单，类似于上面的调用方式，只需要在 `createAdapter()` 内再添加一个 `withType()` 方法即可。下面是一个写起来可能相当复杂的 Adapter，但是采用了 xAdpater 的调用方式之后，一切变得非常简单，
 
 ```kotlin
-    private fun createAdapter() {
-        adapter = createAdapter {
-            withType(MultiTypeDataGridStyle::class.java, R.layout.item_list) {
-                onBind { helper, item ->
-                    val rv = helper.getView<RecyclerView>(R.id.rv)
-                    rv.layoutManager = GridLayoutManager(context, 3)
-                    val adapter = createSubAdapter(R.layout.item_home_page_data_module_1, 1)
-                    rv.adapter = adapter
-                    adapter.setNewData(item.items)
+private fun createAdapter() {
+    adapter = createAdapter {
+        withType(MultiTypeDataGridStyle::class.java, R.layout.item_list) {
+            onBind { helper, item ->
+                val rv = helper.getView<RecyclerView>(R.id.rv)
+                rv.layoutManager = GridLayoutManager(context, 3)
+                val adapter = createSubAdapter(R.layout.item_home_page_data_module_1, 1)
+                rv.adapter = adapter
+                adapter.setNewData(item.items)
+            }
+        }
+        withType(MultiTypeDataListStyle1::class.java, R.layout.item_home_page_data_module_2) {
+            onBind { helper, item ->
+                converter.invoke(helper, item)
+            }
+            onItemClick { _, _, position ->
+                (adapter?.getItem(position) as? MultiTypeDataListStyle1)?.let {
+                    toast("Clicked style[2] item: " + it.item.data.title)
                 }
             }
-            withType(MultiTypeDataListStyle1::class.java, R.layout.item_home_page_data_module_2) {
-                onBind { helper, item ->
-                    converter.invoke(helper, item)
-                }
-                onItemClick { _, _, position ->
-                    (adapter?.getItem(position) as? MultiTypeDataListStyle1)?.let {
-                        toast("Clicked style[2] item: " + it.item.data.title)
-                    }
-                }
+        }
+        withType(MultiTypeDataListStyle2::class.java, R.layout.item_list) {
+            onBind { helper, item ->
+                val rv = helper.getView<RecyclerView>(R.id.rv)
+                rv.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                val adapter = createSubAdapter(R.layout.item_home_page_data_module_4, 3)
+                rv.adapter = adapter
+                adapter.setNewData(item.items)
             }
-            withType(MultiTypeDataListStyle2::class.java, R.layout.item_list) {
-                onBind { helper, item ->
-                    val rv = helper.getView<RecyclerView>(R.id.rv)
-                    rv.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-                    val adapter = createSubAdapter(R.layout.item_home_page_data_module_4, 3)
-                    rv.adapter = adapter
-                    adapter.setNewData(item.items)
-                }
+        }
+        withType(MultiTypeDataListStyle3::class.java, R.layout.item_home_page_data_module_3) {
+            onBind { helper, item ->
+                converter.invoke(helper, item)
             }
-            withType(MultiTypeDataListStyle3::class.java, R.layout.item_home_page_data_module_3) {
-                onBind { helper, item ->
-                    converter.invoke(helper, item)
-                }
-                onItemClick { _, _, position ->
-                    (adapter?.getItem(position) as? MultiTypeDataListStyle3)?.let {
-                        toast("Clicked style[4] item: " + it.item.data.title)
-                    }
+            onItemClick { _, _, position ->
+                (adapter?.getItem(position) as? MultiTypeDataListStyle3)?.let {
+                    toast("Clicked style[4] item: " + it.item.data.title)
                 }
             }
         }
     }
+}
 ```
 
 可以通过阅读源码来了解设计思路，以上是部分功能展示，可以通过阅读源码了解更多。后续我们会支持更多 Adapter 特性的封装来实现快速调用。
