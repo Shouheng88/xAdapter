@@ -46,8 +46,8 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.6"
     implementation "com.github.bumptech.glide:glide:4.12.0"
     implementation "com.github.bumptech.glide:compiler:4.12.0"
-//    implementation project(":library")
-    implementation "com.github.Shouheng88:xadapter:1.0"
+    implementation project(":library")
+//    implementation "com.github.Shouheng88:xadapter:1.0"
     implementation "com.github.Shouheng88:vmlib-network:$androidVMLibVersion"
     implementation ("com.github.Shouheng88:vmlib:$androidVMLibVersion") {
         exclude group: 'me.shouheng.utils'

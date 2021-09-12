@@ -17,10 +17,22 @@ internal interface AdapterViewHolderConverter<IT, VH: BaseViewHolder> {
     fun convert(helper: VH, item: IT)
 }
 
+/** Adapter ViewHolder attach to window event callback. */
+internal interface AdapterViewHolderAttachCallback<VH: BaseViewHolder> {
+    fun onAttachedToWindow(holder: VH)
+}
+
+/** Adapter ViewHolder detach from window event callback. */
+internal interface AdapterViewHolderDetachCallback<VH: BaseViewHolder> {
+    fun onDetachedFromWindow(holder: VH)
+}
+
 @AdapterMarker
 class AdapterViewHolderSetup<IT, VH: BaseViewHolder> internal constructor() {
 
     internal var converter: AdapterViewHolderConverter<IT, VH>? = null
+    internal var onAttached: AdapterViewHolderAttachCallback<VH>? = null
+    internal var onDetached: AdapterViewHolderDetachCallback<VH>? = null
 
     internal var mOnItemClickListener: BaseQuickAdapter.OnItemClickListener? = null
     internal var mOnItemLongClickListener: BaseQuickAdapter.OnItemLongClickListener? = null
@@ -32,6 +44,24 @@ class AdapterViewHolderSetup<IT, VH: BaseViewHolder> internal constructor() {
         converter = object : AdapterViewHolderConverter<IT, VH> {
             override fun convert(helper: VH, item: IT) {
                 block.invoke(helper, item)
+            }
+        }
+    }
+
+    /** On ViewHolder attached to window. */
+    fun onAttached(block: (holder: VH) -> Unit) {
+        onAttached = object : AdapterViewHolderAttachCallback<VH> {
+            override fun onAttachedToWindow(holder: VH) {
+                block.invoke(holder)
+            }
+        }
+    }
+
+    /** On ViewHolder detached from window. */
+    fun onDetached(block: (holder: VH) -> Unit) {
+        onDetached = object : AdapterViewHolderDetachCallback<VH> {
+            override fun onDetachedFromWindow(holder: VH) {
+                block.invoke(holder)
             }
         }
     }

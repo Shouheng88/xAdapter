@@ -21,7 +21,7 @@ import java.util.List;
  * @Author wangshouheng
  * @Time 2021/9/10
  */
-public abstract class BaseMultiTypeQuickAdapter <T, K extends BaseViewHolder> extends BaseQuickAdapter<T, K> {
+public abstract class BaseMultiTypeQuickAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, K> {
 
     /** layouts indexed with their types */
     private SparseIntArray layouts;

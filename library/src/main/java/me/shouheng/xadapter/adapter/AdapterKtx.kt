@@ -65,6 +65,16 @@ class AdapterSetup<IT, VH: BaseViewHolder> internal constructor() {
                         definition.setup.converter?.convert(helper, item)
                         addClickListeners(helper, definition)
                     }
+
+                    override fun onViewAttachedToWindow(holder: VH) {
+                        super.onViewAttachedToWindow(holder)
+                        definition.setup.onAttached?.onAttachedToWindow(holder)
+                    }
+
+                    override fun onViewDetachedFromWindow(holder: VH) {
+                        super.onViewDetachedFromWindow(holder)
+                        definition.setup.onDetached?.onDetachedFromWindow(holder)
+                    }
                 }
             }
             else -> {
@@ -80,6 +90,16 @@ class AdapterSetup<IT, VH: BaseViewHolder> internal constructor() {
                         definition?.let {
                             addClickListeners(helper, definition)
                         }
+                    }
+
+                    override fun onViewAttachedToWindow(holder: VH) {
+                        super.onViewAttachedToWindow(holder)
+                        definitions[holder.itemViewType]?.setup?.onAttached?.onAttachedToWindow(holder)
+                    }
+
+                    override fun onViewDetachedFromWindow(holder: VH) {
+                        super.onViewDetachedFromWindow(holder)
+                        definitions[holder.itemViewType]?.setup?.onDetached?.onDetachedFromWindow(holder)
                     }
                 }
             }

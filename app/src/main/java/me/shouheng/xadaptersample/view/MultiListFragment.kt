@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import me.shouheng.uix.widget.rv.listener.DataLoadScrollListener
 import me.shouheng.utils.ktx.dp
+import me.shouheng.utils.stability.L
 import me.shouheng.vmlib.base.ViewBindingFragment
 import me.shouheng.xadapter.createAdapter
 import me.shouheng.xadapter.viewholder.onItemChildClick
@@ -71,6 +72,12 @@ class MultiListFragment: ViewBindingFragment<EyeViewModel, FragmentListBinding>(
                     (adapter?.getItem(position) as? MultiTypeDataListStyle1)?.let {
                         toast("Clicked style[2] item: " + it.item.data.title)
                     }
+                }
+                onAttached {
+                    L.d("On viewholder attached to window: $it, pos: ${it.adapterPosition}")
+                }
+                onDetached {
+                    L.d("On viewholder detached From window: $it, pos: ${it.adapterPosition}")
                 }
             }
             withType(MultiTypeDataListStyle2::class.java, R.layout.item_list) {
