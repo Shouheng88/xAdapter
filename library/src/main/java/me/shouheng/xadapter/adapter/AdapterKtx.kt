@@ -1,5 +1,6 @@
 package me.shouheng.xadapter.adapter
 
+import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
@@ -48,60 +49,90 @@ class AdapterSetup<IT, VH: BaseViewHolder> internal constructor() {
         return definitions[type]
     }
 
-    internal fun build(): BaseQuickAdapter<IT, VH> {
-        val adapter: BaseQuickAdapter<IT, VH>?
-        when {
-            definitions.isEmpty() -> {
-                adapter = object : BaseQuickAdapter<IT, VH>(0) {
-                    override fun convert(helper: VH, item: IT) {
-                        // do nothing
-                    }
+    /** Create empty adapter. */
+    private fun createEmptyAdapter(): BaseQuickAdapter<IT, VH> {
+        return object : BaseQuickAdapter<IT, VH>(0) {
+            override fun convert(helper: VH, item: IT) {
+                // do nothing
+            }
+        }
+    }
+
+    /**
+     * Create single type adapter. The [createMultiTypeAdapter] is also suitable for
+     * single type adapter. The main reason we separate multi and single is for better
+     * performance for single type.
+     */
+    private fun createSingleTypeAdapter(): BaseQuickAdapter<IT, VH> {
+        val definition = definitions.values.first()
+        return object : BaseQuickAdapter<IT, VH>(definition.layoutId) {
+            override fun convert(helper: VH, item: IT) {
+                definition.setup.converter?.convert(helper, item)
+                addClickListeners(helper, definition)
+            }
+
+            override fun onViewAttachedToWindow(holder: VH) {
+                super.onViewAttachedToWindow(holder)
+                definition.setup.onAttached?.onAttachedToWindow(holder)
+            }
+
+            override fun onViewDetachedFromWindow(holder: VH) {
+                super.onViewDetachedFromWindow(holder)
+                definition.setup.onDetached?.onDetachedFromWindow(holder)
+            }
+
+            override fun onCreateDefViewHolder(parent: ViewGroup?, viewType: Int): VH {
+                val vh = super.onCreateDefViewHolder(parent, viewType)
+                definition.setup.onCreated?.onViewHolderCreated(vh)
+                return vh
+            }
+        }
+    }
+
+    /** Create multi-type adapter. */
+    private fun createMultiTypeAdapter(): BaseQuickAdapter<IT, VH> {
+        return object : BaseMultiTypeQuickAdapter<IT, VH>(mutableListOf()) {
+            init {
+                definitions.entries.forEach {
+                    addItemType(it.key, it.value.layoutId)
                 }
+            }
+            override fun convert(helper: VH, item: IT) {
+                val definition = definitions[item!!::class.java.hashCode()]
+                definition?.setup?.converter?.convert(helper, item)
+                definition?.let {
+                    addClickListeners(helper, definition)
+                }
+            }
+
+            override fun onViewAttachedToWindow(holder: VH) {
+                super.onViewAttachedToWindow(holder)
+                definitions[holder.itemViewType]?.setup?.onAttached?.onAttachedToWindow(holder)
+            }
+
+            override fun onViewDetachedFromWindow(holder: VH) {
+                super.onViewDetachedFromWindow(holder)
+                definitions[holder.itemViewType]?.setup?.onDetached?.onDetachedFromWindow(holder)
+            }
+
+            override fun onCreateDefViewHolder(parent: ViewGroup?, viewType: Int): VH {
+                val vh = super.onCreateDefViewHolder(parent, viewType)
+                definitions[viewType]?.setup?.onCreated?.onViewHolderCreated(vh)
+                return vh
+            }
+        }
+    }
+
+    internal fun build(): BaseQuickAdapter<IT, VH> {
+        val adapter: BaseQuickAdapter<IT, VH> = when {
+            definitions.isEmpty() -> {
+                createEmptyAdapter()
             }
             definitions.size == 1 -> {
-                val definition = definitions.values.first()
-                adapter = object : BaseQuickAdapter<IT, VH>(definition.layoutId) {
-                    override fun convert(helper: VH, item: IT) {
-                        definition.setup.converter?.convert(helper, item)
-                        addClickListeners(helper, definition)
-                    }
-
-                    override fun onViewAttachedToWindow(holder: VH) {
-                        super.onViewAttachedToWindow(holder)
-                        definition.setup.onAttached?.onAttachedToWindow(holder)
-                    }
-
-                    override fun onViewDetachedFromWindow(holder: VH) {
-                        super.onViewDetachedFromWindow(holder)
-                        definition.setup.onDetached?.onDetachedFromWindow(holder)
-                    }
-                }
+                createSingleTypeAdapter()
             }
             else -> {
-                adapter = object : BaseMultiTypeQuickAdapter<IT, VH>(mutableListOf()) {
-                    init {
-                        definitions.entries.forEach {
-                            addItemType(it.key, it.value.layoutId)
-                        }
-                    }
-                    override fun convert(helper: VH, item: IT) {
-                        val definition = definitions[item!!::class.java.hashCode()]
-                        definition?.setup?.converter?.convert(helper, item)
-                        definition?.let {
-                            addClickListeners(helper, definition)
-                        }
-                    }
-
-                    override fun onViewAttachedToWindow(holder: VH) {
-                        super.onViewAttachedToWindow(holder)
-                        definitions[holder.itemViewType]?.setup?.onAttached?.onAttachedToWindow(holder)
-                    }
-
-                    override fun onViewDetachedFromWindow(holder: VH) {
-                        super.onViewDetachedFromWindow(holder)
-                        definitions[holder.itemViewType]?.setup?.onDetached?.onDetachedFromWindow(holder)
-                    }
-                }
+                createMultiTypeAdapter()
             }
         }
         // Set click events for adapter. Here we use the item view type as key to get

@@ -120,6 +120,9 @@ class MultiListFragment: ViewBindingFragment<EyeViewModel, FragmentListBinding>(
                         toast("Clicked style[${style}] item: " + it.data.title)
                     }
                 }
+                onCreated {
+                    L.d("On viewholder is created : $it")
+                }
             }
         }
     }
