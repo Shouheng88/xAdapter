@@ -15,9 +15,8 @@ import me.shouheng.xadapter.createAdapter
 import me.shouheng.xadapter.viewholder.onItemChildClick
 import me.shouheng.xadapter.viewholder.onItemClick
 import me.shouheng.xadaptersample.R
+import me.shouheng.xadaptersample.data.*
 import me.shouheng.xadaptersample.databinding.FragmentListBinding
-import me.shouheng.xadaptersample.eye.HomeBean
-import me.shouheng.xadaptersample.eye.Item
 import me.shouheng.xadaptersample.vm.EyeViewModel
 import me.shouheng.xadaptersample.widget.loadCover
 import me.shouheng.xadaptersample.widget.loadRoundImage
@@ -34,7 +33,7 @@ class MultiListFragment: ViewBindingFragment<EyeViewModel, FragmentListBinding>(
 
     private var adapter: BaseQuickAdapter<IMultiTypeData, BaseViewHolder>? = null
 
-    private val converter = { helper: BaseViewHolder , item: MultiTypeData  ->
+    private val converter = { helper: BaseViewHolder , item: MultiTypeData ->
         helper.setText(R.id.tv1, item.item.data.title)
         helper.setText(R.id.tv2, item.item.data.author?.name + " | " + item.item.data.category)
         helper.loadRoundImage(requireContext(), R.id.iv, item.item.data.cover?.homepage, R.drawable.recommend_summary_card_bg_unlike, 4f.dp())
@@ -128,7 +127,7 @@ class MultiListFragment: ViewBindingFragment<EyeViewModel, FragmentListBinding>(
     }
 
     private fun observes() {
-        observe(HomeBean::class.java, success = {
+        observe(HomeBean::class.java, {
             val items = mutableListOf<Item>()
             it.data.issueList.forEach { issue ->
                 issue.itemList.forEach { item ->
@@ -156,15 +155,3 @@ class MultiListFragment: ViewBindingFragment<EyeViewModel, FragmentListBinding>(
         })
     }
 }
-
-interface IMultiTypeData
-/** Multi type data for [Item]. */
-open class MultiTypeData(val item: Item): IMultiTypeData
-/** Multi type data for list style one. */
-class MultiTypeDataListStyle1(item: Item): MultiTypeData(item)
-/** Multi type data for list style two. */
-class MultiTypeDataListStyle2(val items: List<Item>): IMultiTypeData
-/** Multi type data for list style three. */
-class MultiTypeDataListStyle3(item: Item): MultiTypeData(item)
-/** Multi type data for grid style. */
-class MultiTypeDataGridStyle(val items: List<Item>): IMultiTypeData

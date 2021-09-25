@@ -33,8 +33,10 @@ task clean(type: Delete) {
 }
 
 ext {
+    publishVersion = '1.1'
     androidUtilsVersion = '2.4.0'
     androidVMLibVersion = '1.8.0'
     androidUIXVersion = '1.9.0'
-    publishVersion = '1.0'
+    minSdkVersion = 17
+    targetSdkVersion = 30
 }

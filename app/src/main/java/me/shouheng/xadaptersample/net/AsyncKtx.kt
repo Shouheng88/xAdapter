@@ -13,7 +13,7 @@ inline fun <R> runAsync(
     asyncContext: CoroutineContext = Dispatchers.IO,
     crossinline onSucceed: (Resources<R>) -> Unit = {},
     crossinline onLoading: (Resources<R>) -> Unit = {},
-    crossinline onFailed: (Resources<R>) -> Unit = {},
+    crossinline onFailed : (Resources<R>) -> Unit = {},
     crossinline asyncTask: suspend () -> Resources<R>
 ) {
     GlobalScope.launch(context) {

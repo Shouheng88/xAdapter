@@ -2,8 +2,8 @@ package me.shouheng.xadaptersample.vm
 
 import android.app.Application
 import me.shouheng.vmlib.base.BaseViewModel
-import me.shouheng.xadaptersample.eye.EyepetizerRepo
-import me.shouheng.xadaptersample.eye.HomeBean
+import me.shouheng.xadaptersample.data.EyepetizerRepo
+import me.shouheng.xadaptersample.data.HomeBean
 
 /**
  * @Author wangshouheng

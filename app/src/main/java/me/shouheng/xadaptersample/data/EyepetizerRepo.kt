@@ -1,4 +1,4 @@
-package me.shouheng.xadaptersample.eye
+package me.shouheng.xadaptersample.data
 
 import me.shouheng.xadaptersample.net.Net
 import me.shouheng.xadaptersample.net.Server

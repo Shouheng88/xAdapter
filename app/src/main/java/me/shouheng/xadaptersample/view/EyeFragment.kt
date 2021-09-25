@@ -14,8 +14,8 @@ import me.shouheng.xadapter.viewholder.onItemClick
 import me.shouheng.xadapter.viewholder.onItemLongClick
 import me.shouheng.xadaptersample.R
 import me.shouheng.xadaptersample.databinding.FragmentListBinding
-import me.shouheng.xadaptersample.eye.HomeBean
-import me.shouheng.xadaptersample.eye.Item
+import me.shouheng.xadaptersample.data.HomeBean
+import me.shouheng.xadaptersample.data.Item
 import me.shouheng.xadaptersample.vm.EyeViewModel
 import me.shouheng.xadaptersample.widget.loadCover
 import me.shouheng.xadaptersample.widget.loadRoundImage
