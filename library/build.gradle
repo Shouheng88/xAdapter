@@ -51,7 +51,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId 'com.github.Shouheng88'
             artifactId 'xadapter'
-            version rootProject.ext.publishVersion
+            version rootProject.ext.xadapter_publish_version
             // Two artifacts, the `aar` and the sources
             artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
             artifact androidSourcesJar

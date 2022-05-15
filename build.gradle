@@ -33,7 +33,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    publishVersion = '1.1'
+    xadapter_publish_version = '1.1'
     androidUtilsVersion = '2.4.0'
     androidVMLibVersion = '1.8.0'
     androidUIXVersion = '1.9.0'
