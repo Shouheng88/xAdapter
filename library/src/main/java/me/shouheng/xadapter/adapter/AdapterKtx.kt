@@ -51,10 +51,12 @@ class AdapterSetup<IT, VH: BaseViewHolder> internal constructor() {
 
     /** Create empty adapter. */
     private fun createEmptyAdapter(): BaseQuickAdapter<IT, VH> {
-        return object : BaseQuickAdapter<IT, VH>(0) {
+        return object : InternalBaseQuickAdapter<IT, VH>(0) {
             override fun convert(helper: VH, item: IT) {
                 // do nothing
             }
+
+            override fun getTitle(position: Int): String? = null
         }
     }
 
@@ -65,7 +67,7 @@ class AdapterSetup<IT, VH: BaseViewHolder> internal constructor() {
      */
     private fun createSingleTypeAdapter(): BaseQuickAdapter<IT, VH> {
         val definition = definitions.values.first()
-        return object : BaseQuickAdapter<IT, VH>(definition.layoutId) {
+        return object : InternalBaseQuickAdapter<IT, VH>(definition.layoutId) {
             override fun convert(helper: VH, item: IT) {
                 definition.setup.converter?.convert(helper, item)
                 addClickListeners(helper, definition)
@@ -85,6 +87,12 @@ class AdapterSetup<IT, VH: BaseViewHolder> internal constructor() {
                 val vh = super.onCreateDefViewHolder(parent, viewType)
                 definition.setup.onCreated?.onViewHolderCreated(vh)
                 return vh
+            }
+
+            override fun getTitle(position: Int): String? {
+                return definition.setup
+                    .mInternalFastScrollerTextGetter
+                    ?.getTitle(position, getItem(position))
             }
         }
     }
@@ -119,6 +127,13 @@ class AdapterSetup<IT, VH: BaseViewHolder> internal constructor() {
                 val vh = super.onCreateDefViewHolder(parent, viewType)
                 definitions[viewType]?.setup?.onCreated?.onViewHolderCreated(vh)
                 return vh
+            }
+
+            override fun getTitle(position: Int): String? {
+                return getDefinition(this, position)
+                    ?.setup
+                    ?.mInternalFastScrollerTextGetter
+                    ?.getTitle(position, getItem(position))
             }
         }
     }

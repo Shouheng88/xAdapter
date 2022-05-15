@@ -13,6 +13,8 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.List;
 
+import me.shouheng.xadapter.listener.FastScrollerTextGetter;
+
 /**
  * Custom typed quick adapter as {@link com.chad.library.adapter.base.BaseMultiItemQuickAdapter}.
  * This adapter use the class type id as the item view type, so you don't need to implement
@@ -21,7 +23,9 @@ import java.util.List;
  * @Author wangshouheng
  * @Time 2021/9/10
  */
-public abstract class BaseMultiTypeQuickAdapter<T, K extends BaseViewHolder> extends BaseQuickAdapter<T, K> {
+public abstract class BaseMultiTypeQuickAdapter<T, K extends BaseViewHolder>
+        extends BaseQuickAdapter<T, K>
+        implements FastScrollerTextGetter {
 
     /** layouts indexed with their types */
     private SparseIntArray layouts;
