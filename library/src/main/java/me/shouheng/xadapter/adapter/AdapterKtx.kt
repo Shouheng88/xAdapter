@@ -3,7 +3,7 @@ package me.shouheng.xadapter.adapter
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import me.shouheng.xadapter.viewholder.AdapterViewHolderDefinition
 import me.shouheng.xadapter.viewholder.AdapterViewHolderSetup
 

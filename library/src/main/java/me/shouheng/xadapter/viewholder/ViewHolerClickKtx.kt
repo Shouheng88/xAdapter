@@ -3,13 +3,17 @@ package me.shouheng.xadapter.viewholder
 import android.view.View
 import androidx.annotation.IdRes
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
+import com.chad.library.adapter.base.listener.OnItemChildLongClickListener
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.chad.library.adapter.base.listener.OnItemLongClickListener
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 
 /** Add callback when the item is clicked. */
 fun <IT, VH: BaseViewHolder> AdapterViewHolderSetup<IT, VH>.onItemClick(
     block: (adapter: BaseQuickAdapter<*, *>, view: View, position: Int) -> Unit
 ) {
-    mOnItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+    mOnItemClickListener = OnItemClickListener { adapter, view, position ->
         block.invoke(adapter, view, position)
     }
 }
@@ -18,7 +22,7 @@ fun <IT, VH: BaseViewHolder> AdapterViewHolderSetup<IT, VH>.onItemClick(
 fun <IT, VH: BaseViewHolder> AdapterViewHolderSetup<IT, VH>.onItemLongClick(
     block: (adapter: BaseQuickAdapter<*, *>, view: View, position: Int) -> Boolean
 ) {
-    mOnItemLongClickListener = BaseQuickAdapter.OnItemLongClickListener { adapter, view, position ->
+    mOnItemLongClickListener = OnItemLongClickListener { adapter, view, position ->
         block.invoke(adapter, view, position)
     }
 }
@@ -28,7 +32,7 @@ fun <IT, VH: BaseViewHolder> AdapterViewHolderSetup<IT, VH>.onItemChildClick(
     @IdRes viewId: Int,
     block: (adapter: BaseQuickAdapter<*, *>, view: View, position: Int) -> Unit
 ) {
-    mOnItemChildClickListeners[viewId] = BaseQuickAdapter.OnItemChildClickListener { adapter, view, position ->
+    mOnItemChildClickListeners[viewId] = OnItemChildClickListener { adapter, view, position ->
         block.invoke(adapter, view, position)
     }
 }
@@ -38,7 +42,7 @@ fun <IT, VH: BaseViewHolder> AdapterViewHolderSetup<IT, VH>.onItemChildLongClick
     @IdRes viewId: Int,
     block: (adapter: BaseQuickAdapter<*, *>, view: View, position: Int) -> Boolean
 ) {
-    mOnItemChildLongClickListeners[viewId] = BaseQuickAdapter.OnItemChildLongClickListener { adapter, view, position ->
+    mOnItemChildLongClickListeners[viewId] = OnItemChildLongClickListener { adapter, view, position ->
         block.invoke(adapter, view, position)
     }
 }

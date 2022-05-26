@@ -2,9 +2,12 @@ package me.shouheng.xadapter.viewholder
 
 import androidx.annotation.LayoutRes
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
+import com.chad.library.adapter.base.listener.OnItemChildLongClickListener
+import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.chad.library.adapter.base.listener.OnItemLongClickListener
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import me.shouheng.xadapter.adapter.AdapterMarker
-import me.shouheng.xadapter.listener.FastScrollerTextGetter
 
 /** ViewHolder definition. */
 internal open class AdapterViewHolderDefinition<T, VH: BaseViewHolder>(
@@ -48,10 +51,10 @@ class AdapterViewHolderSetup<IT, VH: BaseViewHolder> internal constructor() {
 
     internal var mInternalFastScrollerTextGetter: InternalFastScrollerTextGetter<IT>? = null
 
-    internal var mOnItemClickListener: BaseQuickAdapter.OnItemClickListener? = null
-    internal var mOnItemLongClickListener: BaseQuickAdapter.OnItemLongClickListener? = null
-    internal var mOnItemChildClickListeners = mutableMapOf<Int, BaseQuickAdapter.OnItemChildClickListener>()
-    internal var mOnItemChildLongClickListeners = mutableMapOf<Int, BaseQuickAdapter.OnItemChildLongClickListener>()
+    internal var mOnItemClickListener: OnItemClickListener? = null
+    internal var mOnItemLongClickListener: OnItemLongClickListener? = null
+    internal var mOnItemChildClickListeners = mutableMapOf<Int, OnItemChildClickListener>()
+    internal var mOnItemChildLongClickListeners = mutableMapOf<Int, OnItemChildLongClickListener>()
 
     /**
      * On ViewHolder created callback. You are able to add some layout
