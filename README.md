@@ -33,6 +33,8 @@
     <image src="images/sample2.gif" style="margin-left:20px">
 </div>
 
+> ⚠ **注意！当前版本基于 BRVAH 的 `2.9.5-androidx` 版本开发，因为 BRVAH 开发的时候没做好向下兼容，导致迁移成本非常高，本库暂时不准备迁移到 BRVAH 的 3.x 版本。**
+
 ## 2、使用
 
 ### 2.1 引入依赖
