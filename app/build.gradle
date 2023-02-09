@@ -50,21 +50,21 @@ dependencies {
     implementation "com.github.bumptech.glide:compiler:4.12.0"
     implementation project(":library")
 //    implementation "com.github.Shouheng88:xadapter:1.0"
-    implementation "com.github.Shouheng88:vmlib-network:$androidVMLibVersion"
-    implementation ("com.github.Shouheng88:vmlib:$androidVMLibVersion") {
+    implementation "com.github.Shouheng88:vmlib-network:$arch_version"
+    implementation ("com.github.Shouheng88:vmlib:$arch_version") {
         exclude group: 'me.shouheng.utils'
         exclude group: 'me.shouheng.compressor'
         exclude group: 'android.arch.lifecycle'
     }
     implementation 'com.github.Shouheng88:compressor:1.5.0'
-    implementation ("com.github.Shouheng88:uix-core:$androidUIXVersion") {
+    implementation ("com.github.Shouheng88:uix-core:$ui_version") {
         exclude group: 'com.github.Shouheng88', module: "matisse"
         exclude group: 'com.github.Shouheng88', module: "icamera"
     }
     implementation 'com.github.Shouheng88:icamera:0.3.0-beta'
     implementation 'com.github.Shouheng88:matisse:1.3.0'
-    implementation "com.github.Shouheng88:utils-core:$androidUtilsVersion"
-    implementation "com.github.Shouheng88:utils-ktx:$androidUtilsVersion"
+    implementation "com.github.Shouheng88:utils-core:$utils_version"
+    implementation "com.github.Shouheng88:utils-ktx:$utils_version"
 
     implementation 'androidx.lifecycle:lifecycle-livedata:2.0.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
