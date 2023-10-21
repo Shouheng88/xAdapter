@@ -48,7 +48,7 @@ class EyeFragment : ViewBindingFragment<EyeViewModel, FragmentListBinding>() {
                 onBind { helper, item ->
                     helper.setText(R.id.tv_title, item.data.title)
                     helper.setText(R.id.tv_sub_title, item.data.author?.name + " | " + item.data.category)
-                    helper.loadCover(requireContext(), R.id.iv_cover, item.data.cover?.homepage, R.drawable.recommend_summary_card_bg_unlike)
+                    helper.loadCover(requireContext(), R.id.iv_cover, item.data.cover?.detail, R.drawable.recommend_summary_card_bg_unlike)
                     helper.loadRoundImage(requireContext(), R.id.iv_author, item.data.author?.icon, R.mipmap.eyepetizer, 20f.dp2px())
                 }
                 // Item level click and long click events.
