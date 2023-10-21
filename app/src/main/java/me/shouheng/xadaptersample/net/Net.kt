@@ -24,10 +24,10 @@ class Net {
         fun <T> execute(call: Call<T>): Resources<T> {
             return try {
                 val response = call.execute()
-                if (response.isSuccessful && response.body() != null) {
+                return if (response.isSuccessful && response.body() != null) {
                     Resources.success(response.body())
                 } else {
-                    return Resources.failed("1", "${response.code()} failed")
+                    Resources.failed("1", "${response.code()} failed")
                 }
             } catch (t: Throwable) {
                 return Resources.failed("12", "${t.message}")
