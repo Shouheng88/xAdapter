@@ -33,7 +33,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    xadapter_version = '1.2'
+    xadapter_version = '1.4'
     utils_version = '2.8.3'
     arch_version = '1.8.0'
     ui_version = '1.9.0'
